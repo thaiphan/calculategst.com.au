@@ -84,3 +84,18 @@ input[type=number] {
   background: #DA4167;
   cursor: pointer;
 }
+
+.input-container {
+  display: flex;
+}
+
+.copy-to-clipboard {
+  border: 0;
+  padding: 8px;
+  transition: color .1s ease-in-out;
+}
+
+.copy-to-clipboard:hover {
+  color: #DA4167;
+  cursor: pointer;
+}
