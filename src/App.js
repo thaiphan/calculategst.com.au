@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import {BrowserRouter, Link, Route, Switch} from 'react-router-dom';
 import Calculator from './Calculator';
+import {Helmet} from 'react-helmet';
 
 class App extends Component {
 
@@ -16,6 +17,10 @@ class App extends Component {
               render={() => {
                 return (
                   <div className="wrapper">
+                    <Helmet>
+                      <title>What Is GST? - GST Calculator</title>
+                      <meta name="description" content="The goods and services tax (GST) in Australia is a value added tax of 10% on most goods and services sales."/>
+                    </Helmet>
                     <div>
                       <h1>What Is GST?</h1>
                       <p>The goods and services tax (GST) in Australia is a value added tax of 10% on most goods and services sales, with some exemptions (such as for certain food, healthcare and housing items) and concessions (including qualifying long term accommodation which is taxed at an effective rate of 5.5%). GST is levied on most transactions in the production process, but is in many cases refunded to all parties in the chain of production other than the final consumer.</p>
