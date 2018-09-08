@@ -134,3 +134,36 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+
+footer .wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+footer ul {
+  margin: 0;
+  padding: 0;
+}
+
+footer li {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.attribution-notice {
+  background-color: white;
+  border: 2px solid #DA4167;
+  box-sizing: border-box;
+  padding: 20px;
+  /*margin: 0 auto;*/
+  /*max-width: 90%;*/
+}
+
+.attribution-notice a {
+  color: #DA4167;
+  text-decoration: none;
+}
+
+.attribution-notice a:hover {
+  text-decoration: underline;
+}
