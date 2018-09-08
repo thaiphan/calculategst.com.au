@@ -21,8 +21,8 @@ class Price extends Component {
     this.props.history.push({
       pathname: this.props.location.pathname,
       search: qs.stringify({
-        ...queryParams,
         ...updatedPrice,
+        ...queryParams,
       })
     })
   }

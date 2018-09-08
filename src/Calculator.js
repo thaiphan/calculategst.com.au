@@ -1,6 +1,6 @@
 import {Component} from 'react';
 import React from 'react';
-import {withRouter} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import classnames from 'classnames';
 import Price from './Price';
 import qs from 'qs';
@@ -81,6 +81,39 @@ class Calculator extends Component {
     return ''
   }
 
+  getStrategy = () => {
+    const queryParams = qs.parse(this.props.location.search, {
+      ignoreQueryPrefix: true
+    })
+
+    if (queryParams.hasOwnProperty('strategy')) {
+      return queryParams.strategy
+    }
+    return 'ADD'
+  }
+
+  getAddStrategyQueryParam = () => {
+    const {strategy, ...queryParams} = qs.parse(this.props.location.search, {
+      ignoreQueryPrefix: true
+    })
+
+    return qs.stringify({
+      ...queryParams,
+      strategy: 'ADD',
+    })
+  }
+
+  getSubstractStrategyQueryParam = () => {
+    const {strategy, ...queryParams} = qs.parse(this.props.location.search, {
+      ignoreQueryPrefix: true
+    })
+
+    return qs.stringify({
+      ...queryParams,
+      strategy: 'SUBTRACT',
+    })
+  }
+
   render() {
     return (
       <form>
@@ -91,14 +124,20 @@ class Calculator extends Component {
         <div>
           <div className={classnames(
             'strategy-selector',
-            {'strategy-selector--add': this.state.strategy === 'ADD'},
-            {'strategy-selector--subtract': this.state.strategy === 'SUBTRACT'},
+            {'strategy-selector--add': this.getStrategy() === 'ADD'},
+            {'strategy-selector--subtract': this.getStrategy() === 'SUBTRACT'},
           )} role="tablist">
-            <button type="button" className="add" onClick={this.handleAddGst}>Add GST</button>
-            <button type="button" className="substract" onClick={this.handleSubtractGst}>Subtract GST</button>
+            <Link className="button add" to={{
+              pathname: '/',
+              search: this.getAddStrategyQueryParam()
+            }}>Add GST</Link>
+            <Link className="button substract" to={{
+              pathname: '/',
+              search: this.getSubstractStrategyQueryParam()
+            }}>Subtract GST</Link>
           </div>
 
-          {this.state.strategy === 'ADD' && (
+          {this.getStrategy() === 'ADD' && (
             <div className="add-gst" role="tabpanel">
               <div className="form-group">
                 <label htmlFor="price-after-gst">Price after GST</label>
@@ -155,7 +194,7 @@ class Calculator extends Component {
             </div>
           )}
 
-          {this.state.strategy === 'SUBTRACT' && (
+          {this.getStrategy() === 'SUBTRACT' && (
             <div className="subtract-gst" role="tabpanel">
               <div className="form-group">
                 <label htmlFor="price-before-gst">Price before GST</label>

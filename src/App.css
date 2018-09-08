@@ -64,15 +64,15 @@ input[type=number] {
   margin-bottom: 16px;
 }
 
-.strategy-selector--add .add {
+.strategy-selector--add .button.add {
   background: #DA4167;
 }
 
-.strategy-selector--subtract .substract {
+.strategy-selector--subtract .button.substract {
   background: #DA4167;
 }
 
-.strategy-selector button {
+.strategy-selector .button {
   background: #832161;
   border: none;
   box-sizing: border-box;
@@ -83,11 +83,12 @@ input[type=number] {
   padding: 12px;
   position: relative;
   text-align: center;
+  text-decoration: none;
   transition: background-color .1s ease-in-out;
   width: 50%;
 }
 
-.strategy-selector button:hover {
+.strategy-selector .button:hover {
   background: #DA4167;
   cursor: pointer;
 }
