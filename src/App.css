@@ -4,6 +4,13 @@ body {
   margin: 0;
 }
 
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
 form {
   margin: 0 auto;
   width: 100%;
@@ -98,4 +105,31 @@ input[type=number] {
 .copy-to-clipboard:hover {
   color: #DA4167;
   cursor: pointer;
+}
+
+.wrapper {
+  margin: 0 auto;
+  max-width: 1220px;
+}
+
+footer {
+  background-color: white;
+  border-top: 2px solid #DA4167;
+  padding: 20px;
+}
+
+@media (min-width: 1261px) {
+  footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+footer a {
+  color: #DA4167;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
 }
