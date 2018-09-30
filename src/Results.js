@@ -5,12 +5,15 @@ import qs from 'qs';
 import {withRouter} from 'react-router-dom';
 
 class Results extends PureComponent {
+  getQueryParams = () => qs.parse(this.props.location.search, {
+    ignoreQueryPrefix: true
+  })
 
   calculatePriceAfterGst = () => {
     if (this.getPrice() !== '') {
       const price = parseFloat(this.getPrice())
 
-      return (price * 1.1).toFixed(2)
+      return (price * (1 + this.getGSTRate())).toFixed(2)
     }
     return ''
   }
@@ -19,7 +22,7 @@ class Results extends PureComponent {
     if (this.getPrice() !== '') {
       const price = parseFloat(this.getPrice())
 
-      return (price * .1).toFixed(2)
+      return (price * this.getGSTRate()).toFixed(2)
     }
     return ''
   }
@@ -28,7 +31,7 @@ class Results extends PureComponent {
     if (this.getPrice() !== '') {
       const price = parseFloat(this.getPrice())
 
-      return (price / 1.1).toFixed(2)
+      return (price / (1 + this.getGSTRate())).toFixed(2)
     }
     return ''
   }
@@ -37,15 +40,13 @@ class Results extends PureComponent {
     if (this.getPrice() !== '') {
       const price = parseFloat(this.getPrice())
 
-      return (price / 11).toFixed(2)
+      return ((price / ((1 + this.getGSTRate()) * 100)) * (this.getGSTRate() * 100)).toFixed(2)
     }
     return ''
   }
 
   getPrice = () => {
-    const queryParams = qs.parse(this.props.location.search, {
-      ignoreQueryPrefix: true
-    })
+    const queryParams = this.getQueryParams()
 
     if (queryParams.hasOwnProperty('price')) {
       return queryParams.price
@@ -53,10 +54,14 @@ class Results extends PureComponent {
     return ''
   }
 
+  getGSTRate = () => {
+    const {gstRate = '10'} = this.getQueryParams()
+
+    return parseInt(gstRate) / 100
+  }
+
   getStrategy = () => {
-    const queryParams = qs.parse(this.props.location.search, {
-      ignoreQueryPrefix: true
-    })
+    const queryParams = this.getQueryParams()
 
     if (queryParams.hasOwnProperty('strategy')) {
       return queryParams.strategy

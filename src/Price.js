@@ -1,16 +1,16 @@
-import {Component} from 'react';
-import React from 'react';
+import React, {PureComponent} from 'react';
 import {withRouter} from 'react-router-dom';
 import qs from 'qs';
 
-class Price extends Component {
+class Price extends PureComponent {
+  getQueryParams = () => qs.parse(this.props.location.search, {
+    ignoreQueryPrefix: true
+  })
+
   handleChangePrice = event => {
     event.preventDefault()
 
-    const {price, ...queryParams} = qs.parse(this.props.location.search, {
-      ignoreQueryPrefix: true
-    })
-
+    const {price, ...queryParams} = this.getQueryParams()
     let updatedPrice = {}
     if (event.target.value !== '') {
       updatedPrice = {
@@ -28,9 +28,7 @@ class Price extends Component {
   }
 
   getPrice = () => {
-    const {price = ''} = qs.parse(this.props.location.search, {
-      ignoreQueryPrefix: true
-    })
+    const {price = ''} = this.getQueryParams()
 
     return price
   }

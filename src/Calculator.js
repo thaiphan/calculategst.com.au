@@ -7,11 +7,12 @@ import './Calculator.css'
 import Results from './Results';
 
 class Calculator extends PureComponent {
+  getQueryParams = () => qs.parse(this.props.location.search, {
+    ignoreQueryPrefix: true
+  })
 
   getStrategy = () => {
-    const queryParams = qs.parse(this.props.location.search, {
-      ignoreQueryPrefix: true
-    })
+    const queryParams = this.getQueryParams()
 
     if (queryParams.hasOwnProperty('strategy')) {
       return queryParams.strategy
@@ -20,9 +21,7 @@ class Calculator extends PureComponent {
   }
 
   getAddStrategyQueryParam = () => {
-    const {strategy, ...queryParams} = qs.parse(this.props.location.search, {
-      ignoreQueryPrefix: true
-    })
+    const {strategy, ...queryParams} = this.getQueryParams()
 
     return qs.stringify({
       ...queryParams,
@@ -31,9 +30,7 @@ class Calculator extends PureComponent {
   }
 
   getSubstractStrategyQueryParam = () => {
-    const {strategy, ...queryParams} = qs.parse(this.props.location.search, {
-      ignoreQueryPrefix: true
-    })
+    const {strategy, ...queryParams} = this.getQueryParams()
 
     return qs.stringify({
       ...queryParams,
@@ -41,15 +38,52 @@ class Calculator extends PureComponent {
     })
   }
 
+  handleChangeGSTRate = event => {
+    event.preventDefault()
+
+    let inputtedValue = +event.target.value
+    if (inputtedValue > 100) {
+      inputtedValue = 100
+    } else if (inputtedValue < 0) {
+      inputtedValue = 0
+    }
+
+    this.props.history.push({
+      pathname: this.props.location.pathname,
+      search: qs.stringify({
+        ...this.getQueryParams(),
+        gstRate: inputtedValue,
+      })
+    })
+  }
+
+  getGSTRate = () => {
+    const {gstRate = '10'} = this.getQueryParams()
+
+    return gstRate
+  }
+
   render() {
     return (
       <form className="content">
         <h1>Australian GST Calculator</h1>
 
-        <Price/>
-
         <div>
+          <Price/>
+
+          <div className="form-group">
+            <label>Enter GST Rate (%)</label>
+            <input
+              type="number"
+              min={0}
+              max={100}
+              onChange={this.handleChangeGSTRate}
+              value={this.getGSTRate()}
+            />
+          </div>
+
           <div className={classnames(
+            'form-group',
             'strategy-selector',
             {'strategy-selector--add': this.getStrategy() === 'ADD'},
             {'strategy-selector--subtract': this.getStrategy() === 'SUBTRACT'},
@@ -63,9 +97,9 @@ class Calculator extends PureComponent {
               search: this.getSubstractStrategyQueryParam()
             }}>Subtract GST</Link>
           </div>
-
-          <Results/>
         </div>
+
+        <Results/>
       </form>
     )
   }
