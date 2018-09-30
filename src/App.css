@@ -16,39 +16,39 @@ body {
   max-width: 1220px;
 }
 
-footer {
+.footer {
   background-color: white;
   border-top: 2px solid #DA4167;
   padding: 20px;
 }
 
 @media (min-width: 1261px) {
-  footer {
+  .footer {
     padding-left: 0;
     padding-right: 0;
   }
 }
 
-footer a {
+.footer a {
   color: #DA4167;
   text-decoration: none;
 }
 
-footer a:hover {
+.footer a:hover {
   text-decoration: underline;
 }
 
-footer .wrapper {
+.footer .wrapper {
   display: flex;
   justify-content: space-between;
 }
 
-footer ul {
+.footer ul {
   margin: 0;
   padding: 0;
 }
 
-footer li {
+.footer li {
   display: inline-block;
   margin-left: 20px;
 }

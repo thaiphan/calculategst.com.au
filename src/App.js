@@ -41,7 +41,7 @@ class App extends Component {
             }}/>
           </Switch>
 
-          <footer>
+          <footer className="footer">
             <div className="wrapper">
               <div>&copy; 2018 <a href="https://thaiphan.github.io/">Thai Phan</a></div>
               <ul>
