@@ -6,6 +6,7 @@ import Price from './Price';
 import qs from 'qs';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import VisuallyHidden from "@reach/visually-hidden";
+import './Calculator.css'
 
 class Calculator extends Component {
   constructor(props) {
