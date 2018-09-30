@@ -117,7 +117,7 @@ class Calculator extends Component {
 
   render() {
     return (
-      <form>
+      <form className="content">
         <h1>Australian GST Calculator</h1>
 
         <Price/>
